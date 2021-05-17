@@ -1,0 +1,29 @@
+CREATE TABLE users (
+   user_id INTEGER NOT NULL
+    AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(128) NOT NULL,
+   email VARCHAR(128) UNIQUE NOT NULL,
+   password VARCHAR(128) NOT NULL,
+   INDEX(email),
+    CONSTRAINT CHK_Person CHECK (LENGTHB(email)>0 AND LENGTHB(name)>0)
+) ENGINE=InnoDB CHARSET=utf8;
+
+
+CREATE TABLE application (
+   app_id INTEGER NOT NULL
+   AUTO_INCREMENT PRIMARY KEY,
+    user_id INTEGER,
+   state VARCHAR(128) NOT NULL,
+    district VARCHAR(128) NOT NULL,
+    city_village VARCHAR(128),
+    require_type VARCHAR(128) NOT NULL,
+   requirement VARCHAR(500) NOT NULL,
+    phone1 VARCHAR(128) NOT NULL,
+    phone2 VARCHAR(128),
+    CONSTRAINT FOREIGN KEY (user_id)
+    REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+
+    CONSTRAINT CHK_Patient CHECK (LENGTHB(requirement)>0 AND LENGTHB(phone1)>0)
+) ENGINE=InnoDB CHARSET=utf8;
+
+AlTER TABLE application ADD patient_name VARCHAR(128) NOT NULL;
